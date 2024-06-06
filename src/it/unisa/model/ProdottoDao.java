@@ -153,15 +153,17 @@ public class ProdottoDao implements ProdottoDaoInterfaccia{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		List<String> validColumns = Arrays.asList("id_prodotto", "nome", "descrizione",
-				"descrizione_dettagliata", "iva", "in_vendita", "data_uscita", "prezzo",
-				"quantita", "immagine", "piattaforma", "genere");
+		List<String> validColumns = Arrays.asList("ID_PRODOTTO", "NOME", "DESCRIZIONE",
+				"DESCRIZIONE_DETTAGLIATA", "IVA", "IN_VENDITA", "DATA_USCITA", "PREZZO",
+				"QUANTITA", "IMMAGINE", "PIATTAFORMA", "GENERE");
 
 		String selectSQL = "SELECT * FROM " + ProdottoDao.TABLE_NAME;
 
-		if (order != null && validColumns.contains(order)) {
-			selectSQL += " ORDER BY " + order;
-		}
+		 if (validColumns.contains(order)) {
+	            selectSQL += " ORDER BY " + order;
+	        } else {
+	            selectSQL += " ORDER BY id"; 
+	        }
 
 		try {
 			connection = ds.getConnection();
