@@ -1,6 +1,8 @@
 package it.unisa.control;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,10 +36,15 @@ public class RegistrazioneServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String dataNascita = request.getParameter("nascita");
 		String username = request.getParameter("us");
-		String pwd = request.getParameter("pw");
+		String password = request.getParameter("pw");
 
         String[] parti = dataNascita.split("-");
         dataNascita = parti[2] + "-" + parti[1] + "-" + parti[0];
+        
+        // Crittografa la password
+        String hashedPassword = hashPassword(password);
+        
+        
 		
 		try {
 			
@@ -47,7 +54,7 @@ public class RegistrazioneServlet extends HttpServlet {
 			user.setEmail(email);
 			user.setDataDiNascita(Date.valueOf(dataNascita));
 			user.setUsername(username);
-			user.setPassword(pwd);
+			user.setPassword(hashedPassword);
 			user.setAmministratore(false);
 			user.setCap(null);
 			user.setIndirizzo(null);
@@ -60,6 +67,21 @@ public class RegistrazioneServlet extends HttpServlet {
 				
 		response.sendRedirect(request.getContextPath() + "/Home.jsp");
 
+	}
+
+
+	private String hashPassword(String password) {
+		try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(password.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hash) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
 	}
 
 }
