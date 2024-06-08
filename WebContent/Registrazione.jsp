@@ -34,7 +34,7 @@
 		</div>
 		<div class="tableRow">
 			<p>Email:</p>
-			<p><input type="text" id="em" name="email" placeholder="MarioRossi@gmail.com" onfocus="myFunction(this)" required/></p>	
+			<p><input type="email" id="em" name="email" placeholder="MarioRossi@gmail.com" onfocus="myFunction(this)" required/></p>	
 		</div>
 		<div class="tableRow">
 			<p></p>
