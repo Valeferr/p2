@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebFilter("/PathTraversalFilter")
 public class PathTraversalFilter extends HttpFilter implements Filter {
        
-	private static final String BASE_DIRECTORY = "C:\\Users\\valen_12bjkcd\\git\\p2";
+	private static final String BASE_DIRECTORY = "...";
     /**
      * @see HttpFilter#HttpFilter()
      */
